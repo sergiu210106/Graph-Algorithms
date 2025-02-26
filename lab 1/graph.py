@@ -49,10 +49,15 @@ class Graph:
             raise ValueError("Vertices do not exist in current graph")
         return terminal_vertex in self.list_of_neighbours[start_vertex]
 
-    def neighbours(self, vertex) -> list: # O(1)
+    def neighbours(self, vertex) -> list: # O(V)
         if vertex not in self.list_of_neighbours:
             raise ValueError("Vertex not in Graph")
         return list(self.list_of_neighbours[vertex])[:]
+
+    def neighbours_v2(self, vertex): # Theta(1)
+        if vertex not in self.list_of_neighbours:
+            raise ValueError("Vertex not in Graph")
+        return iter(self.list_of_neighbours[vertex])
 
     def inbound_neighbours(self, vertex): # O(V)
         ans = []

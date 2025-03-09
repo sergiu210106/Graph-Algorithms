@@ -1,3 +1,5 @@
+from graph import Graph
+
 def test_graph():
     # Create a new graph instance
     g = Graph()
@@ -50,4 +52,5 @@ def test_graph():
 
 
 # Run the tests
-test_graph()
+if __name__ == '__main__':
+    test_graph()

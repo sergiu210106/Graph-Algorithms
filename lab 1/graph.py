@@ -2,11 +2,11 @@ class Graph:
     def __init__(self, n : dict = {}):
         self.list_of_neighbours = n
 
-    def add_vertex(self, name): # O(1)
+    def add_vertex(self, name): # Theta(1)
         if name in self.list_of_neighbours:
             raise ValueError("Vertex already in Graph")
         self.list_of_neighbours[name] = []
-    def add_edge(self, start_vertex, terminal_vertex): # O(1)
+    def add_edge(self, start_vertex, terminal_vertex): # Theta(1)
         if start_vertex not in self.list_of_neighbours or terminal_vertex not in self.list_of_neighbours:
             raise ValueError("Vertices do not exist in current graph")
 
@@ -15,7 +15,7 @@ class Graph:
 
         self.list_of_neighbours[start_vertex].append(terminal_vertex)
 
-    def remove_edge(self, start_vertex, terminal_vertex): # O(E)
+    def remove_edge(self, start_vertex, terminal_vertex): # O(E/V)
         if start_vertex not in self.list_of_neighbours or terminal_vertex not in self.list_of_neighbours:
             raise ValueError("Vertices do not exist in current graph")
         if terminal_vertex not in self.list_of_neighbours[start_vertex]:
@@ -27,7 +27,7 @@ class Graph:
 
     def remove_vertex(self, vertex): # O(V+E)
         if vertex not in self.list_of_neighbours:
-            raise ValueError("Vertex not in Graph")
+            raise ValueError("Vertex do not exist in current graph")
 
         for key in self.list_of_neighbours.keys():
             if vertex in self.list_of_neighbours[key]:
@@ -38,13 +38,13 @@ class Graph:
     def get_v(self): # O(1)
         return len(self.list_of_neighbours.keys())
 
-    def get_e(self): # O(V+E)
+    def get_e(self): # Theta(V)
         result = 0
         for i in self.list_of_neighbours.values():
             result += len(i)
         return result
 
-    def is_edge(self, start_vertex, terminal_vertex): # O(V+E)
+    def is_edge(self, start_vertex, terminal_vertex): # O(E/V)
         if start_vertex not in self.list_of_neighbours or terminal_vertex not in self.list_of_neighbours:
             raise ValueError("Vertices do not exist in current graph")
         return terminal_vertex in self.list_of_neighbours[start_vertex]
@@ -59,7 +59,7 @@ class Graph:
             raise ValueError("Vertex not in Graph")
         return iter(self.list_of_neighbours[vertex])
 
-    def inbound_neighbours(self, vertex): # O(V)
+    def inbound_neighbours(self, vertex): # O(V+E)
         ans = []
         for v in self.list_of_neighbours:
             if vertex in self.list_of_neighbours[v]:
@@ -67,6 +67,8 @@ class Graph:
         return ans
     def get_vertices(self): # O(V)
         return list(self.list_of_neighbours.keys())[:]
+
+    #space complexity - Theta(V+E)
 
     def __str__(self):
         s = "directed unweighted\n"
